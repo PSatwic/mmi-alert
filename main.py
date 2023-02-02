@@ -20,7 +20,7 @@ def send_msg(text):
   message = text
   url1 = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
   requests.get(url1)
-  url1 = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id2}&text={message}"
+  url2 = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id2}&text={message}"
   requests.get(url2)
   return
 
@@ -96,11 +96,13 @@ def main():
       new_mmi = get_mmi()  #assigns the refreshed value
       run_no = run_no + 1
     if ( (today_now()[1].weekday()== 4 and today_now()[1].hour>=16) or (today_now()[1].weekday() > 4 ) ):
-      print(f"sleeping for {weekend_sleep()[0]} seconds now is weekend and starts at {weekend_sleep()[1]}")
+      send_msg(f"sleeping for {weekend_sleep()[0]} seconds now is weekend and starts at {weekend_sleep()[1]}")
       time.sleep(float(weekend_sleep()[0]))
+      send_msg(f"bot started at {today_now()[0]}")
     else:
-      print(f"sleeping for {weekday_sleep()[0]} seconds now is weekday and starts at {weekday_sleep()[1]}")
+      send_msg(f"sleeping for {weekday_sleep()[0]} seconds now is weekday and starts at {weekday_sleep()[1]}")
       time.sleep(float(weekday_sleep()[0]))
+      send_msg(f"bot started at {today_now()[0]}")
   return
 
 
