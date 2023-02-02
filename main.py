@@ -47,8 +47,11 @@ def weekend_sleep():
 def weekday_sleep():
   date_format_str = '%Y-%m-%d %H:%M:%S'
   now_time = datetime.datetime.now(pytz.timezone('Asia/Kolkata'))
-  coming_monday = str((now_time + datetime.timedelta(days = 1)).date())
-  target_time = datetime.datetime.strptime(f"{coming_monday}"+" 09:00:00", date_format_str)
+  if(now_time.hour > 16):
+    next_day = str((now_time + datetime.timedelta(days = 1)).date())
+  else:
+    next_day = str((now_time + datetime.timedelta(days = 0)).date())
+  target_time = datetime.datetime.strptime(f"{next_day}"+" 09:00:00", date_format_str)
   naive = now_time.strftime(date_format_str)
   start = datetime.datetime.strptime(naive, date_format_str)
   end_date =   target_time
