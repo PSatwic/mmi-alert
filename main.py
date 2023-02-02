@@ -32,6 +32,29 @@ def get_mmi():
   mmi = soup.find("span" , class_="jsx-1637443598 jsx-1556920289 number").get_text()
   return float(mmi)
 
+def weekend_sleep():
+  date_format_str = '%Y-%m-%d %H:%M:%S'
+  now_time = datetime.datetime.now(pytz.timezone('Asia/Kolkata'))
+  coming_monday = str((now_time + datetime.timedelta(days = (7-now_time.weekday()))).date())
+  target_time = datetime.datetime.strptime(f"{coming_monday}"+" 09:00:00", date_format_str)
+  naive = now_time.strftime(date_format_str)
+  start = datetime.datetime.strptime(naive, date_format_str)
+  end_date =   target_time
+  diff = end_date - start
+  tot_secs = diff.total_seconds()
+  return (str(tot_secs),end_date.strftime(date_format_str))
+
+def weekday_sleep():
+  date_format_str = '%Y-%m-%d %H:%M:%S'
+  now_time = datetime.datetime.now(pytz.timezone('Asia/Kolkata'))
+  coming_monday = str((now_time + datetime.timedelta(days = 1)).date())
+  target_time = datetime.datetime.strptime(f"{coming_monday}"+" 09:00:00", date_format_str)
+  naive = now_time.strftime(date_format_str)
+  start = datetime.datetime.strptime(naive, date_format_str)
+  end_date =   target_time
+  diff = end_date - start
+  tot_secs = diff.total_seconds()
+  return (str(tot_secs),end_date.strftime(date_format_str))
 
 def main():
   run_no = 0
@@ -69,15 +92,12 @@ def main():
       time.sleep(refresh_time * 60)
       new_mmi = get_mmi()  #assigns the refreshed value
       run_no = run_no + 1
-    if (today_now()[1].weekday() < 5):
-      print("sleeping for 17 hrs")
-      x = 61200-((today_now()[1].hour-16)*60*60)-((today_now()[1].minute)*60)-((today_now()[1].second))
-      print(x)
-      time.sleep(x)
+    if ( (today_now()[1].weekday()== 4 and today_now()[1].hour>=16) or (today_now()[1].weekday() > 4 ) ):
+      print(f"sleeping for {weekend_sleep()[0]} seconds now is weekend and starts at {weekend_sleep()[1]}")
+      time.sleep(float(weekend_sleep()[0]))
     else:
-      print("sleeping for weekend")
-      time.sleep(838800)
-    break
+      print(f"sleeping for {weekday_sleep()[0]} seconds now is weekday and starts at {weekday_sleep()[1]}")
+      time.sleep(float(weekday_sleep()[0]))
   return
 
 
