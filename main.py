@@ -37,7 +37,7 @@ def main():
   in_id = 0
   out_id = 0
   while True:
-    while today_now()[1].hour < 24 and today_now()[1].hour >= 9:
+    while today_now()[1].hour < 16 and today_now()[1].hour >= 9:
       print(f"run_no  {run_no}")
       print(f"new mmi is {new_mmi}")
       print(f"old mmi is {old_mmi}")
