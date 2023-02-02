@@ -75,10 +75,10 @@ def main():
       driver.get(driver.current_url)  # refreshes the page
       new_mmi = get_mmi(driver) #assigns the refreshed value
       run_no = run_no+1
-  if(today_now()[1].weekday() < 5 ):
-    time.sleep(61200)
-  else:
-    time.sleep(838800)
+    if(today_now()[1].weekday() < 5 ):
+      time.sleep(61200)
+    else:
+      time.sleep(838800)
   return
 
 keep_alive()
