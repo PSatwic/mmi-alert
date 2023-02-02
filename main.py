@@ -16,9 +16,12 @@ def today_now():
 def send_msg(text):
   TOKEN = "6165499133:AAEvdzvgwhTi13lfDEMSIXjmiaJTp5fC3uI"
   chat_id = "5752392578"
+  chat_id2 = "865024459"
   message = text
-  url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
-  requests.get(url)
+  url1 = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
+  requests.get(url1)
+  url1 = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id2}&text={message}"
+  requests.get(url2)
   return
 
 
@@ -68,10 +71,13 @@ def main():
       run_no = run_no + 1
     if (today_now()[1].weekday() < 5):
       print("sleeping for 17 hrs")
-      time.sleep(61200)
+      x = 61200-((today_now()[1].hour-16)*60*60)-((today_now()[1].minute)*60)-((today_now()[1].second))
+      print(x)
+      time.sleep(x)
     else:
       print("sleeping for weekend")
       time.sleep(838800)
+    break
   return
 
 
